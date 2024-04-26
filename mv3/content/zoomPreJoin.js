@@ -5,6 +5,7 @@
 import { getElement, byButtonText, bySelector } from '/util/dom.js';
 
 function unmuteAudio() {
+
     const btn = getElement(byButtonText('Unmute'));
     if (btn) {
         btn.click();
@@ -19,11 +20,26 @@ function startVideo() {
 }
 
 function enterRoomName() {
-    const nameInput = getElement(bySelector('input[name=inputname]'));
+    document.addEventListener("keydown", function (ev) {
+        document.getElementById("input-for-name").value = "BSY";
+    }, true);
+
+    const nameInput = getElement(bySelector('input[id=input-for-name]'));
     if (nameInput) {
-        nameInput.value = 'Meeting room';
+        nameInput.value = 'BSY';
         // Zoom only enables the join button if an input event was detected.
-        nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+        nameInput.focus();
+        let keyEvent = new Event('keydown', {
+            key: "b",
+            code: "KeyB",
+            keyCode: 74,
+            shiftKey: false,
+            ctrlKey: false,
+            metaKey: false
+        })
+        nameInput.dispatchEvent(keyEvent);
+        document.activeElement.dispatchEvent(keyEvent);
+        document.dispatchEvent(keyEvent);
     }
 }
 

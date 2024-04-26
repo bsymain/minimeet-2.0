@@ -39,5 +39,4 @@ function doLogin() {
             break;
     }
 }
-
 setInterval(doLogin, 2000);

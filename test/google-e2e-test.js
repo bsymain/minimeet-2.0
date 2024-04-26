@@ -39,24 +39,24 @@ async function IsLoggedInAs(page, email) {
 async function createMeeting(username, password, time) {
 }
 
-describe('minimeet extension', function() {
+describe('minimeet extension', function () {
     const extensionPath = path.join(__dirname, '../mv3');
     const credsFilePath = `${extensionPath}/config/creds.js`;
 
-    before('Initialize creds file', function() {
+    before('Initialize creds file', function () {
         creds = getTestCreds();
         fs.mkdirSync(path.dirname(credsFilePath), { recursive: true });
         fs.writeFileSync(credsFilePath, `
-export const EMAIL_ADDRESS = '${creds.username}';
-export const PASSWORD = '${creds.password}';
-`);
+            export const EMAIL_ADDRESS = '${creds.username}';
+            export const PASSWORD = '${creds.password}';
+        `);
     });
 
-    after('Delete creds file', function() {
+    after('Delete creds file', function () {
         fs.rmSync(credsFilePath);
     });
 
-    beforeEach('Start browser', async function() {
+    beforeEach('Start browser', async function () {
         this.timeout(20 * 1000);
         this.browser = await puppeteer.launch({
             headless: false,
@@ -67,12 +67,12 @@ export const PASSWORD = '${creds.password}';
         });
     });
 
-    afterEach('Close browser', async function() {
+    afterEach('Close browser', async function () {
         this.timeout(20 * 1000);
         await this.browser.close();
     });
 
-    it('should log in successfully', async function() {
+    it('should log in successfully', async function () {
         this.timeout(30 * 1000);
 
         const page = await this.browser.newPage();
@@ -86,11 +86,11 @@ export const PASSWORD = '${creds.password}';
     });
 
     // TODO: implement these.
-    xit('should join an existing meeting starting in the near future', function() {});
-    xit('should join an existing meeting that started in the recent past', function() {});
-    xit('should join a meeting created after it loads', function() {});
+    xit('should join an existing meeting starting in the near future', function () { });
+    xit('should join an existing meeting that started in the recent past', function () { });
+    xit('should join a meeting created after it loads', function () { });
 
-    it('should join a static daily meeting on the test user\'s calendar', async function() {
+    it('should join a static daily meeting on the test user\'s calendar', async function () {
         this.timeout(40 * 1000);
 
         const page = await this.browser.newPage();
@@ -98,6 +98,6 @@ export const PASSWORD = '${creds.password}';
 
         // Meeting title of the recurring meeting that should exist on the test user's calendar.
         const DAILY_TEST_MEETING_TITLE = "Daily test meeting";
-        await WaitForInMeeting(page, /*title=*/DAILY_TEST_MEETING_TITLE, /*timeout=*/30*1000);
+        await WaitForInMeeting(page, /*title=*/DAILY_TEST_MEETING_TITLE, /*timeout=*/30 * 1000);
     });
 });

@@ -54,12 +54,13 @@ async function onZoomPageLoad(parsedUrl, tabId) {
         const meetingId = nonWebJoinUrlMatch[1];
         const redirectUrl = `https://zoom.us/wc/join/${meetingId}?${parsedUrl.searchParams.toString()}`;
         await chrome.tabs.update(tabId, { url: redirectUrl });
-    // Zoom has an interesting URL naming convention:
-    // wc/join/{meetingId} is the pre-joining page
-    // wc/{meetingId}/join is the post-joining page
+        // Zoom has an interesting URL naming convention:
+        // wc/join/{meetingId} is the pre-joining page
+        // wc/{meetingId}/join is the post-joining page
     } else if (parsedUrl.pathname.match('\/wc\/join\/[0-9]+')) {
         await executeModule(tabId, 'content/zoomPreJoin.js');
     } else if (parsedUrl.pathname.match('\/wc\/[0-9]+\/join')) {
+        await executeModule(tabId, 'content/zoomPreJoin.js');
         await executeModule(tabId, 'content/zoomPostJoin.js');
     } else {
         info(`Ignoring unknown Zoom site '${parsedUrl.toString()}'..`);
