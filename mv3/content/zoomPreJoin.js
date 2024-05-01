@@ -20,13 +20,9 @@ function startVideo() {
 }
 
 function enterRoomName() {
-    document.addEventListener("keydown", function (ev) {
-        document.getElementById("input-for-name").value = "BSY";
-    }, true);
 
     const nameInput = getElement(bySelector('input[id=input-for-name]'));
     if (nameInput) {
-        nameInput.value = 'BSY';
         // Zoom only enables the join button if an input event was detected.
         nameInput.focus();
         let keyEvent = new Event('keydown', {
@@ -39,7 +35,6 @@ function enterRoomName() {
         })
         nameInput.dispatchEvent(keyEvent);
         document.activeElement.dispatchEvent(keyEvent);
-        document.dispatchEvent(keyEvent);
     }
 }
 
