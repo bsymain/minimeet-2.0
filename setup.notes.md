@@ -70,3 +70,11 @@ Fullscreen
 https://stackoverflow.com/questions/42503701/chromium-kiosk-mode-fullscreen-and-remove-address-bar
 
 xdotool key F11
+
+
+### AUDIO
+wget https://raw.githubusercontent.com/behoyh/pimeet/master/scripts/set-default-audio-sink.sh -O set-default-audio-sink.sh sudo apt-get install libasound2 libasound2-plugins alsa-utils alsa-oss
+sudo apt-get install pulseaudio pulseaudio-utils
+sudo usermod -aG pulse,pulse-access pi
+pulseaudio -D # set on startup
+bash set-default-audio-sink.sh
